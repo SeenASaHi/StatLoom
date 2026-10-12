@@ -1,6 +1,0 @@
-{
-  "name": "statloom-prototype",
-  "private": true,
-  "type": "module",
-  "description": "StatLoom 最小原型（test/）：纯静态页面 + Node 数学校验脚本，无需安装任何依赖。"
-}

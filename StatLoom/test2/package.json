@@ -1,6 +1,0 @@
-{
-  "name": "statloom-proto2",
-  "private": true,
-  "type": "module",
-  "description": "StatLoom 原型二（test2/）：基于交互语法的自主统计学探索环境；无预设数据；莱茵生命演绎。"
-}
