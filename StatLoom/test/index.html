@@ -1,0 +1,112 @@
+<!doctype html>
+<html
+  lang="zh-CN"
+  data-terra-faction="rhine-lab"
+  data-terra-depth="moderate"
+  data-terra-task="dashboard"
+  data-terra-element="sample-provenance-capsule"
+  data-terra-layout="instrument-bench"
+  data-terra-interaction="diagnostic-plate-2px"
+  data-terra-control="tolerance-caliper"
+>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StatLoom 统计实验台 · 莱茵生命演绎</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 图标为 Lucide（ISC 许可，见 assets/icons/LICENSE），以内联 symbol 使用 -->
+  <svg width="0" height="0" class="icon-defs" aria-hidden="true">
+    <defs>
+      <symbol id="i-flask" viewBox="0 0 24 24"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></symbol>
+      <symbol id="i-microscope" viewBox="0 0 24 24"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></symbol>
+      <symbol id="i-scan" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></symbol>
+      <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="m19 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"/><path d="m5 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M7 21h10"/></symbol>
+      <symbol id="i-atom" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="shell">
+    <div class="shell-brand">
+      <span class="brand-mark" aria-hidden="true"><svg class="icon"><use href="#i-flask"/></svg></span>
+      <div class="brand-text">
+        <h1>StatLoom <span class="brand-sub">统计实验台</span></h1>
+        <p class="brand-tag">TERRA FACTION UI · RHINE LAB 风格演绎</p>
+      </div>
+    </div>
+    <div class="shell-controls">
+      <button id="btn-mix" class="btn">混合这些组</button>
+      <button id="btn-undo" class="btn">撤销</button>
+      <button id="btn-reset" class="btn">恢复原始数据集</button>
+      <label class="latch" title="开启时，部分操作会先进入复核门（可随时跳过，也可以在顶栏关闭）">
+        <input type="checkbox" id="chk-predict" checked />
+        <span class="latch-box" aria-hidden="true"></span>
+        <span class="latch-text">预测门</span>
+      </label>
+      <button id="btn-hints" class="btn btn-ghost" title="重新显示所有已关闭的情境提示">恢复提示</button>
+    </div>
+  </header>
+
+  <main class="lab">
+    <section class="bench" aria-label="分析台">
+      <div class="pane instrument">
+        <div class="pane-head">
+          <svg class="icon" aria-hidden="true"><use href="#i-microscope"/></svg>
+          <h2>观测窗</h2>
+          <span class="micro">ANALYSIS WINDOW</span>
+          <span class="pane-note">分组分布 · 悬停看偏差，点击做追踪</span>
+        </div>
+        <div id="panel-chart" class="pane-body"></div>
+      </div>
+      <aside class="pane dock" aria-label="复核台">
+        <div class="pane-head">
+          <svg class="icon" aria-hidden="true"><use href="#i-scan"/></svg>
+          <h2>复核台</h2>
+          <span class="micro">REVIEW DOCK</span>
+        </div>
+        <div id="panel-dock" class="pane-body"></div>
+      </aside>
+      <div class="pane rail-pane" aria-label="容差轨">
+        <div class="pane-head">
+          <h2>容差轨</h2>
+          <span class="micro">TOLERANCE RAIL</span>
+        </div>
+        <div id="panel-rails" class="pane-body"></div>
+      </div>
+    </section>
+
+    <section class="pane tray-pane" aria-label="样本托盘">
+      <div class="pane-head">
+        <h2>样本托盘</h2>
+        <span class="micro">SAMPLE TRAY · 数据表</span>
+      </div>
+      <div id="specimen-tray" class="pane-body"></div>
+    </section>
+
+    <section class="pane protocol-pane" aria-label="分析规程">
+      <div class="pane-head">
+        <svg class="icon" aria-hidden="true"><use href="#i-atom"/></svg>
+        <h2>分析规程</h2>
+        <span class="micro">PROTOCOL · 公式与推导</span>
+      </div>
+      <div id="panel-formula" class="pane-body"></div>
+    </section>
+
+    <section class="pane loss-pane" aria-label="处置台">
+      <div class="pane-head">
+        <svg class="icon" aria-hidden="true"><use href="#i-scale"/></svg>
+        <h2>处置台</h2>
+        <span class="micro">ASSAY BENCH · 损失函数画布</span>
+      </div>
+      <div id="panel-loss" class="pane-body"></div>
+    </section>
+  </main>
+
+  <div id="guidance-bar" class="guidance-bar" hidden></div>
+  <div id="tooltip" class="tooltip" hidden></div>
+  <aside id="knowledge-drawer" class="drawer" aria-hidden="true"></aside>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
