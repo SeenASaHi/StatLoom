@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StatLoom · 统计探索工作台</title>
+    <script type="module" crossorigin src="./assets/index-DcvP6s56.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CxmJHsMj.css">
+  </head>
+  <body data-surface="dark">
+    <canvas id="bg" aria-hidden="true"></canvas>
+
+    <nav class="rail" aria-label="全局操作">
+      <div class="mark" aria-hidden="true">SL</div>
+      <button id="btnBench" title="载入基准案例 A（A=[4,5,6]、B=[7,8,9]）">基准</button>
+      <button id="btnImport" title="粘贴导入 CSV 或快照 JSON">导入</button>
+      <button id="btnReset" title="清空工作台（可撤销）">清空</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button id="btnUndo" title="撤销（Ctrl+Z）">撤销</button>
+      <button id="btnRedo" title="重做（Ctrl+Shift+Z）">重做</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button id="btnExport" title="导出快照 JSON">导出</button>
+      <div class="spacer"></div>
+      <div class="ver" aria-hidden="true">v0.1 · test3</div>
+    </nav>
+
+    <div class="wrap">
+      <main class="workspace">
+        <section class="win" id="win-canvas" aria-label="观测画布窗口">
+          <div class="win-head">
+            <h1 class="win-title">观测画布<em>Observation canvas</em></h1>
+            <div class="win-tools">
+              <button id="btnSquares" class="tool-toggle" aria-pressed="false">平方块：关</button>
+              <button id="btnAddGroup" class="tool-toggle">新增组</button>
+            </div>
+          </div>
+          <div id="canvas-mount"></div>
+          <div id="readings-mount"></div>
+          <div class="notice" id="notice" role="status" aria-live="polite">
+            <b>状态</b><span id="notice-text">空工作台：载入基准案例，或粘贴导入。</span>
+          </div>
+        </section>
+
+        <section class="win" id="win-inspector" aria-label="来源检查器窗口">
+          <div class="win-head">
+            <h1 class="win-title">来源检查器<em>Source inspector</em></h1>
+          </div>
+          <div id="inspector-mount"></div>
+        </section>
+
+        <section class="win" id="win-relation" aria-label="关系图窗口">
+          <div class="win-head">
+            <h1 class="win-title">关系图<em>Relation graph</em></h1>
+            <div class="win-tools">
+              <button id="btnVisual" class="tool-toggle" aria-pressed="false">视觉映射边：关</button>
+            </div>
+          </div>
+          <div id="relation-mount"></div>
+        </section>
+      </main>
+    </div>
+
+    <div class="overlay" id="overlay">
+      <div class="win" role="dialog" aria-modal="true" aria-label="导入与导出">
+        <div class="win-head">
+          <h1 class="win-title" id="ioTitle">粘贴导入<em>Import</em></h1>
+          <div class="win-tools">
+            <button id="ioClose">关闭</button>
+          </div>
+        </div>
+        <textarea id="ioText" class="io-text" spellcheck="false"></textarea>
+        <div class="io-errors" id="ioErrors"></div>
+        <div class="io-preview" id="ioPreview"></div>
+        <div class="io-actions">
+          <button id="ioCsv">检查并载入 CSV</button>
+          <button id="ioSnapshot">载入快照 JSON</button>
+          <button id="ioCopy" hidden>复制到剪贴板</button>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
